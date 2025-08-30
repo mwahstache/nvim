@@ -46,6 +46,15 @@ return {
     lazy=false,
     init = function()
       vim.g.vimtex_view_method = "zathura"
+      vim.cmd 'set conceallevel=2'
+      vim.g.vimtex_compiler_latexmk = {
+        out_dir = './outputfiles',
+        aux_dir = './auxfiles',
+      }
+      vim.g.vimtex_imaps_enabled = 0
+      vim.g.vimtex_mappings_enabled = 0
+      vim.g.vimtex_quickfix_open_on_warning = 0
+      vim.g.vimtex_format_enabled = 1
     end
   },
 
@@ -72,15 +81,18 @@ return {
     dependencies = {
       -- "rafamadriz/friendly-snippets",
       "micangl/cmp-vimtex",
+      {
+        "L3MON4D3/LuaSnip",
+        version = "v2.*"
+      },
     },
     version = "1.*",
 
-    ---@module "blink.cmp"
-    ---@type blink.cmp.Config
     opts = {
       keymap = { preset = "default" },
+      snippets = { preset = "luasnip" },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "vimtex" },
+        default = { "lsp", "path", "snippets", "buffer", "vimtex", "snippets"},
         providers = {
           vimtex = {
             name = "vimtex",
@@ -90,5 +102,12 @@ return {
       },
     },
     opts_extend = { "sources.default" }
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    config = function()
+      require('luasnip').config.set_config { enable_autosnippets = true }
+      require('luasnip.loaders.from_lua').load { paths = "~/.config/nvim/snippets" }
+    end
   }
 }
