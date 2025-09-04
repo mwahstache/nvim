@@ -16,7 +16,6 @@ vim.opt.cursorline = true
 vim.opt.signcolumn = "yes"
 vim.opt.laststatus = 3
 vim.opt.list = true
-vim.opt.confirm = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.scrolloff = 30
 vim.opt.splitright = true
